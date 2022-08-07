@@ -11,11 +11,11 @@ USER ContainerAdministrator
 SHELL ["powershell"]
 
 ARG CPM_INSTALLATION_ARCHIVE="Central Policy Manager-Rls-v12.1.1.zip"
+ENV ACCEPT_EULA='yes'
+ENV VAULT_IP='192.168.0.50'
 ENV VAULT_USER='Administrator'
 ENV VAULT_PASS='banana'
 ENV PVWA_URL='https://comp01/'
-ENV ACCEPT_EULA='yes'
-ENV VAULT_IP='192.168.0.50'
 ENV CPM_USERNAME='CPM_docker'
 
 COPY ["InstallFiles/${CPM_INSTALLATION_ARCHIVE}", "/tmp/"]
