@@ -4,8 +4,8 @@
 )
 
 $XmlConfig = [xml](Get-Content -Path $File)
-foreach ($Parameter in $ParameterNameValueHashtable.GetEnumerator()) {
-    $Element = $XmlConfig.SelectSingleNode("//Parameter[@Name='$($Parameter.Name)']")
-    $Element.Value = $($Parameter.Value)
+$ParameterNameValueHashtable.GetEnumerator() | ForEach-Object {
+    $Element = $XmlConfig.SelectSingleNode("//Parameter[@Name='$($_.Key)']")
+    $Element.Value = $($_.Value)
 }
 $XmlConfig.Save($File)
