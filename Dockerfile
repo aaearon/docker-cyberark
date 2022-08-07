@@ -9,8 +9,15 @@ RUN curl -fSLo dotnet-framework-installer.exe https://download.visualstudio.micr
     del .\dotnet-framework-installer.exe  && \
     powershell Remove-Item -Force -Recurse ${Env:TEMP}\*
 
-COPY ["InstallFiles/$CPM_INSTALLATION_ARCHIVE", "/tmp/"]
-RUN ["powershell", "Expand-Archive", "'/tmp/$CPM_INSTALLATION_ARCHIVE'","-DestinationPath", "/tmp", "-Force"]
+COPY ["InstallFiles/Central Policy Manager-Rls-v12.6.zip", "/tmp/"]
+RUN ["powershell", "Expand-Archive", "'/tmp/Central Policy Manager-Rls-v12.6.zip'","-DestinationPath", "/tmp", "-Force"]
+
+COPY ["Update-XmlConfig.ps1", "/tmp/"]
+RUN ["powershell", "/tmp/Update-XmlConfig.ps1", "-File", "/tmp/InstallationAutomation/Installation/InstallationConfig.xml", "-ParameterNameValueHashtable", "@{Company = 'ioSharp'}"]
+RUN ["powershell", "/tmp/Update-XmlConfig.ps1", "-File", "/tmp/InstallationAutomation/Registration/CPMRegisterComponentConfig.xml", "-ParameterNameValueHashtable", "@{acceptEula = 'yes'; vaultIP = '192.168.0.50'; username = 'CPM_docker'}"]
 
 WORKDIR /tmp/InstallationAutomation/Installation
 RUN ["powershell", "/tmp/InstallationAutomation/Installation/CPMInstallation.ps1"]
+
+WORKDIR /tmp/InstallationAutomation/Registration
+RUN ["powershell", "/tmp/InstallationAutomation/Registration/CPMRegisterCommponent.ps1", "-pwd", "banana"]
