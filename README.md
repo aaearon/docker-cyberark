@@ -9,5 +9,5 @@
 1. Start the container with
 
    ```docker
-   docker run -e ACCEPT_EULA=yes -e PVWA_URL=https://yourpvwa.domain.com -e VAULT_USER=Administrator -e VAULT_PASS=@dminPassword -e VAULT_IP=192.168.0.50 -e CPM_USERNAME=CPM_Docker
+   docker run -e ACCEPT_EULA=yes -e PVWA_URL=https://yourpvwa.domain.com -e VAULT_USER=Administrator -e VAULT_PASS=@dminPassword -e VAULT_IP=192.168.0.50 -e CPM_USERNAME=CPM_Docker cpm
    ```
